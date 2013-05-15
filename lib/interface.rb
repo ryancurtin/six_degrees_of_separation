@@ -19,9 +19,12 @@ module ImdbInterface
   end
 
   def get_films(actor_page)
-    return [] unless actor_page.css("div#filmo-head-#{@gen_attr}").children[4]
+    title_nodes = actor_page.css("div#filmo-head-Actor").children[4] 
+    title_nodes ||= actor_page.css("div#filmo-head-Actress").children[4] 
+    return [] unless title_nodes
+
     puts "** Get films **"
-    title_nodes = actor_page.css("div#filmo-head-#{@gen_attr}").children[4].text
+    title_nodes = title_nodes.text
     titles_count = title_nodes.scan(/\d/).join('').to_i
     films = actor_page.css("div.filmo-row")[0..(titles_count - 1)]
   end

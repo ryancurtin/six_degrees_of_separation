@@ -1,5 +1,5 @@
 require_relative 'lib/actor'
 
-# Connecting George Clooney and Angelina Jolie, for example
-actor = Actor.new('nm0331516', 'nm0136797', 'george clooney', 'M')
+# Connecting Ryan Gosling and Steve Carell, for example
+actor = Actor.new('nm0331516', 'nm0136797', 'Ryan Gosling', 'M')
 actor.movie_distance

@@ -8,11 +8,10 @@ class Actor
   # Need gender attribute b/c imdb's css uses the words 'actor' / 'actress'
   attr_accessor :id, :connector_id, :name, :gen_attr
 
-  def initialize(id, connector_id, name, gender='M')
+  def initialize(id, connector_id, name)
     @id = id
     @connector_id = connector_id
     @name = name
-    @gen_attr = gender == 'M' ? 'Actor' : 'Actress'
   end
 
   def actor?(id)

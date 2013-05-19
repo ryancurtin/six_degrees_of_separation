@@ -5,8 +5,7 @@ class Actor
   require 'nokogiri'
   include ImdbInterface
 
-  # Need gender attribute b/c imdb's css uses the words 'actor' / 'actress'
-  attr_accessor :id, :connector_id, :name, :gen_attr
+  attr_accessor :id, :connector_id, :name
 
   def initialize(id, connector_id, name)
     @id = id
@@ -46,13 +45,17 @@ class Actor
         @visited[id] = 1
         actor_page = get_actor_page(id)
         films = get_films(actor_page)
-        return (distance + 1) if scan_filmography(films)
+        if scan_filmography(films)
+          puts "Distance: #{distance + 1}"
+          return (distance + 1)
+        end
+        
         films.each{ |f| queue << [get_film_link(f), (distance + 1)] }
       elsif film?(id) && @visited[id].nil?
         @visited[id] = 1
         film_page = get_film_page(id)
         actors = get_actors(film_page)
-        actors.each{ |a| queue << [a, distance] } unless actors == false
+        actors.each{ |a| queue << [a, distance] }
       end
     end
 
